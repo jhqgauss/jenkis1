@@ -1,0 +1,52 @@
+
+const items = require('../src/items/items.router')
+const { matchers } = require('jest-json-schema');
+expect.extend(matchers);
+
+
+//expect.extend(matchers);
+  
+it('validates schema', () => {
+  expect({
+      test: true,
+      format: 'test',
+  }).toBeValidSchema();
+});
+
+it('schema matches data', () => {
+  const schema = {
+      properties: {
+          hello: { type: 'string' }
+      },
+      required: ['hello'],
+  };
+  expect({ hello: 'world', test: 'test' }).toMatchSchema(schema);
+});
+
+
+
+const request = require('supertest');
+const x = require('express');
+const itemsRouter = require('../src/items/items.router');
+
+const app = x.express();
+
+app.use("/items", itemsRouter);
+
+
+  //describe("items", () => {
+      it('consulta item', async () => {
+        const schema = {
+          properties: {
+              hello: { type: 'string' }
+          },
+          required: ['hello'],
+      };
+      const res = await request(app).get('/1');
+      console.log(res.status)
+        //expect(response).toEqual({"id":1,"name":"Burger","price":599,"description":"Tasty","image":"https://cdn.auth0.com/blog/whatabyte/burger-sm.png"})
+        //expect(res).toMatchSchema(schema);
+    });
+
+  //});
+  

@@ -1,0 +1,6 @@
+{
+    "properties": {
+    "hello": { "type": "string" }
+    },
+    "required": ["hello"]
+}
